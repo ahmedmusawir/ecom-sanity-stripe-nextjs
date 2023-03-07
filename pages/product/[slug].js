@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { client } from '../../lib/client';
 import { urlFor } from '../../lib/client';
+import { Product } from '../../components';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
@@ -10,23 +11,34 @@ import {
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
+  const [index, setIndex] = useState(0);
+
   return (
     <div>
       <div className='product-detail-container'>
         <div>
           <div className='image-container'>
-            <img src={urlFor(image && image[0])} alt='' />
-          </div>
-          {/* <div className='small-images-container'>
-            {image?.map((item, i) => (
+            {image && (
               <img
-                key={i}
-                src={urlFor(item)}
-                className=''
-                  onMouseEnter={''}
+                src={urlFor(image && image[index]).url()}
+                alt=''
+                className='product-detail-image'
               />
-            ))}
-          </div> */}
+            )}
+          </div>
+          <div className='small-images-container'>
+            {image &&
+              image?.map((item, i) => (
+                <img
+                  key={i}
+                  src={urlFor(item && item.asset._ref).url()}
+                  className={
+                    i === index ? 'small-image selected-image' : 'small-image'
+                  }
+                  onMouseEnter={() => setIndex(i)}
+                />
+              ))}
+          </div>
         </div>
         <div className='product-detail-desc'>
           <h1>{name}</h1>
@@ -62,6 +74,16 @@ const ProductDetails = ({ product, products }) => {
             <button className='buy-now' onClick={''}>
               Buy Now
             </button>
+          </div>
+        </div>
+      </div>
+      <div className='maylike-products-wrapper'>
+        <h2>You may also like...</h2>
+        <div className='marquee'>
+          <div className='maylike-products-container track'>
+            {products.map((item) => (
+              <Product key={item._id} product={item} setIndex={setIndex} />
+            ))}
           </div>
         </div>
       </div>

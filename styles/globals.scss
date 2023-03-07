@@ -418,9 +418,14 @@ h6 {
 .product-detail-container {
   display: flex;
   gap: 40px;
-  margin: 40px;
   margin-top: 60px;
+  margin-bottom: -8rem;
+  margin-left: 2rem;
   color: #324d67;
+
+  h1 {
+    padding-top: 3rem;
+  }
 
   .product-detail-desc h4 {
     margin-top: 10px;
@@ -469,6 +474,8 @@ h6 {
   display: flex;
   gap: 10px;
   margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 .small-image {
   border-radius: 8px;
@@ -741,8 +748,10 @@ h6 {
     font-size: 20px;
   }
   .track {
-    animation: marquee 10s linear infinite;
-    width: 550%;
+    animation: marquee 20s linear infinite;
+    // animation: marquee 10s linear infinite;
+    width: 50%;
+    // width: 550%;
   }
   .success-wrapper,
   .cancel-wrapper {
