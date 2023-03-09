@@ -4,8 +4,8 @@ import { GlobalContext } from '../context/GlobalContext';
 import { client } from '../lib/client';
 
 const Home = ({ products, bannerData }) => {
-  const { index, setIndex } = useContext(GlobalContext);
-
+  const { index, setIndex, cartsData } = useContext(GlobalContext);
+  console.log('Carts Data:', cartsData);
   return (
     <>
       <h1>

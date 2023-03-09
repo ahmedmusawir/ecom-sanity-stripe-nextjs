@@ -36,5 +36,10 @@ export default {
       name: 'details',
       type: 'string',
     },
+    {
+      title: 'Is Featured',
+      name: 'isFeatured',
+      type: 'string',
+    },
   ],
 }
