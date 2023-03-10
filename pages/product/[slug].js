@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { client } from '../../lib/client';
 import { urlFor } from '../../lib/client';
 import { Product } from '../../components';
+import { toast } from 'react-hot-toast';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiFillStar,
   AiOutlineStar,
 } from 'react-icons/ai';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
-  const [index, setIndex] = useState(0);
+  const { index, setIndex, decQty, incQty, qty, onAdd } =
+    useContext(GlobalContext);
 
   return (
     <div>
@@ -58,20 +61,23 @@ const ProductDetails = ({ product, products }) => {
           <h4>Quantity:</h4>
           <div className='quantity'>
             <p className='quantity-desc'>
-              <span className='minus' onClick={''}>
+              <span className='minus' onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className='num'>0</span>
-              <span className='plus' onClick={''}>
+              <span className='num'>{qty}</span>
+              <span className='plus' onClick={incQty}>
                 <AiOutlinePlus />
               </span>
             </p>
           </div>
           <div className='buttons'>
-            <button className='add-to-cart' onClick={''}>
+            <button className='add-to-cart' onClick={() => onAdd(product, qty)}>
               Add to Cart
             </button>
-            <button className='buy-now' onClick={''}>
+            <button
+              className='buy-now'
+              // onClick={''}
+            >
               Buy Now
             </button>
           </div>
