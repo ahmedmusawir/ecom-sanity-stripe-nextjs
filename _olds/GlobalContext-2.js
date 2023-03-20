@@ -3,6 +3,10 @@ import { toast } from 'react-hot-toast';
 
 export const GlobalContext = createContext();
 
+// const cartFromStorage = localStorage.getItem('cartSanityEcom')
+//   ? JSON.parse(localStorage.getItem('cartSanityEcom'))
+//   : [];
+
 const GlobalContextProvider = ({ children }) => {
   // THE FOLLOWING INDEX STATE WAS ADDED TO RESOLVE IMG LOADING ISSUE
   const [index, setIndex] = useState(0);
@@ -13,36 +17,16 @@ const GlobalContextProvider = ({ children }) => {
   const [qty, setQty] = useState(1);
 
   useEffect(() => {
-    const cartData = window.localStorage.getItem('cartSanityEcom');
-
-    if (cartData !== null) {
-      const parsedData = JSON.parse(cartData);
-      setCartItems(parsedData); // set the state of cartItems with the parsed data
-    }
-
-    const quantityData = window.localStorage.getItem('quantitySanityEcom');
-
-    if (quantityData !== null) {
-      const parsedData = JSON.parse(quantityData);
-      setTotalQuantities(parsedData); // set the state of cartItems with the parsed data
-    }
-
-    const priceData = window.localStorage.getItem('priceSanityEcom');
-
-    if (priceData !== null) {
-      const parsedData = JSON.parse(priceData);
-      setTotalPrice(parsedData); // set the state of cartItems with the parsed data
-    }
+    const data = window.localStorage.getItem('cartSanityEcom');
+    console.log('cart data from local storage', JSON.parse(data));
+    if (data !== null) setCartItems(JSON.parse(data));
+    console.log('cart data length', data.length);
+    console.log('cart data Items State', cartItems);
   }, []);
 
   useEffect(() => {
     window.localStorage.setItem('cartSanityEcom', JSON.stringify(cartItems));
-    window.localStorage.setItem(
-      'quantitySanityEcom',
-      JSON.stringify(totalQuantities)
-    );
-    window.localStorage.setItem('priceSanityEcom', JSON.stringify(totalPrice));
-  }, [cartItems, totalPrice, totalQuantities]);
+  }, [cartItems]);
 
   let foundProduct;
   let indx;
