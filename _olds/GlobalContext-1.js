@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 export const GlobalContext = createContext();
@@ -11,38 +11,6 @@ const GlobalContextProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
-
-  useEffect(() => {
-    const cartData = window.localStorage.getItem('cartSanityEcom');
-
-    if (cartData !== null) {
-      const parsedData = JSON.parse(cartData);
-      setCartItems(parsedData); // set the state of cartItems with the parsed data
-    }
-
-    const quantityData = window.localStorage.getItem('quantitySanityEcom');
-
-    if (quantityData !== null) {
-      const parsedData = JSON.parse(quantityData);
-      setTotalQuantities(parsedData); // set the state of cartItems with the parsed data
-    }
-
-    const priceData = window.localStorage.getItem('priceSanityEcom');
-
-    if (priceData !== null) {
-      const parsedData = JSON.parse(priceData);
-      setTotalPrice(parsedData); // set the state of cartItems with the parsed data
-    }
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem('cartSanityEcom', JSON.stringify(cartItems));
-    window.localStorage.setItem(
-      'quantitySanityEcom',
-      JSON.stringify(totalQuantities)
-    );
-    window.localStorage.setItem('priceSanityEcom', JSON.stringify(totalPrice));
-  }, [cartItems, totalPrice, totalQuantities]);
 
   let foundProduct;
   let indx;
@@ -89,7 +57,6 @@ const GlobalContextProvider = ({ children }) => {
     );
 
     setCartItems(newCartItems);
-    // storeCartItems(cartItems);
   };
 
   const toggleCartItemQuantity = (id, value) => {
