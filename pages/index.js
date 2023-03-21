@@ -4,20 +4,23 @@ import { GlobalContext } from '../context/GlobalContext';
 import { client } from '../lib/client';
 
 const Home = ({ products, bannerData }) => {
-  const { index, setIndex } = useContext(GlobalContext);
+  const { setIndex } = useContext(GlobalContext);
 
   return (
     <>
       <h1>
-        <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
+        <HeroBanner
+          heroBanner={bannerData.length && bannerData[0]}
+          setIndex={setIndex}
+        />
       </h1>
-      <div className='products-heading'>
+      <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many variations</p>
       </div>
 
-      <div className='products-container'>
-        {products?.map((product) => (
+      <div className="products-container">
+        {products?.map(product => (
           <Product key={product._id} product={product} setIndex={setIndex} />
         ))}
       </div>
@@ -38,7 +41,7 @@ export const getServerSideProps = async () => {
   const bannerData = await client.fetch(bannerQuery);
 
   return {
-    props: { products, bannerData },
+    props: { products, bannerData }
   };
 };
 
