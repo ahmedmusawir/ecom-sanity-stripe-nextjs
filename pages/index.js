@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import { Product, HeroBanner, FooterBanner } from '../components';
-import { GlobalContext } from '../context/GlobalContext';
-import { client } from '../lib/client';
+import React, { useContext } from "react";
+import { Product, HeroBanner, FooterBanner } from "../components";
+import { GlobalContext } from "../context/GlobalContext";
+import { client } from "../lib/client";
 
 const Home = ({ products, bannerData }) => {
   const { setIndex } = useContext(GlobalContext);
+  
 
   return (
     <>
@@ -20,7 +21,7 @@ const Home = ({ products, bannerData }) => {
       </div>
 
       <div className="products-container">
-        {products?.map(product => (
+        {products?.map((product) => (
           <Product key={product._id} product={product} setIndex={setIndex} />
         ))}
       </div>
@@ -41,7 +42,7 @@ export const getServerSideProps = async () => {
   const bannerData = await client.fetch(bannerQuery);
 
   return {
-    props: { products, bannerData }
+    props: { products, bannerData },
   };
 };
 
