@@ -6,7 +6,6 @@ import { client } from "../lib/client";
 const Home = ({ products, bannerData }) => {
   const { setIndex } = useContext(GlobalContext);
   
-
   return (
     <>
       <h1>
